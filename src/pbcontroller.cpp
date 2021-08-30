@@ -450,10 +450,12 @@ void PbController::play_file(const std::string& file)
 	if (player == "") {
 		return;
 	}
+	std::string filename_quoted;
+	filename_quoted.append("'");
+	filename_quoted.append(utils::replace_all(file, "'", "'\\''");
+	filename_quoted.append("'");
 	cmdline.append(player);
-	cmdline.append(" '");
-	cmdline.append(utils::replace_all(file, "'", "'\\''"));
-	cmdline.append("'");
+	cmdline = utils::replace_all(cmdline, "<FILE>", filename_quoted);
 	Stfl::reset();
 	utils::run_interactively(cmdline, "PbController::play_file");
 }
